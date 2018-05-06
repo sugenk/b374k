@@ -252,7 +252,11 @@ elseif(isset($p['ulType'])){
 	$ulFilename = trim($p['ulFilename']);
 
 	if($p['ulType']=='comp'){
-		$ulFile = $_FILES['ulFile'];
+		if(phpversion()<'4.1.0'){
+			$ulFile = $HTTP_POST_FILES['ulFile'];
+		} else {
+			$ulFile = $_FILES['ulFile'];
+		}
 		if(empty($ulFilename)) $ulFilename = $ulFile['name'];
 
 		if(is_uploaded_file($ulFile['tmp_name'])){
